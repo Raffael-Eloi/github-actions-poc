@@ -1,6 +1,5 @@
 name: My small App CI-CD
 on:
-  push:
   workflow_dispatch:
 
 jobs:
@@ -15,6 +14,7 @@ jobs:
   printEnvironment:
     name: "Print environment"
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v7
       - name: "Print environment"

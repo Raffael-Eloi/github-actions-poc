@@ -1,0 +1,15 @@
+name: My small App CI-CD (Reusable)
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    uses: ./.github/workflows/reusable-my-ci-cd.yml
+    with: 
+      environment: "dev"
+      
+  deploy-prod:
+    uses: ./.github/workflows/reusable-my-ci-cd.yml
+    with:
+      environment: "prod"
