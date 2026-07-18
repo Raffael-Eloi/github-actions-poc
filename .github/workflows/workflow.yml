@@ -6,7 +6,7 @@ on:
 jobs:
   initial:
     name: "Initial testing"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: "First action"
         run: echo "Testing"
