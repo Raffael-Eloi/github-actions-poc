@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: "First action"
         id: firstAction
-        run: echo "Testing" >> "$GITHUB_OUTPUT"
+        run: echo "testing-value=Testing" >> "$GITHUB_OUTPUT"
         
   second:
     name: "Second job"
