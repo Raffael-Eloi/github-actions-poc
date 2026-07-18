@@ -7,9 +7,12 @@ jobs:
   initial:
     name: "First job"
     runs-on: ubuntu-latest
+    outputs: 
+      testing-value: ${{ steps.firstAction.outputs.testing-value }}
     steps:
       - name: "First action"
-        run: echo "Testing"
+        id: firstAction
+        run: echo "Testing" >> "$GITHUB_OUTPUT"
         
   second:
     name: "Second job"
@@ -18,4 +21,4 @@ jobs:
     steps:
       - name: "Second action"
         run: |
-          echo jobs.initial.outputs
+        echo "Got from initial: ${{ needs.initial.outputs.testing-value }}"
