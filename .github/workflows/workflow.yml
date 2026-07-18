@@ -21,4 +21,4 @@ jobs:
     steps:
       - name: "Second action"
         run: |
-        echo "Got from initial: ${{ needs.initial.outputs.testing-value }}"
+          echo "Got from initial: ${{ needs.initial.outputs.testing-value }}"
