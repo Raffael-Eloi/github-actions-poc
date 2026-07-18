@@ -1,0 +1,12 @@
+name: GitHub Actions Workflow
+on:
+  push: 
+  workflow_dispatch: 
+
+jobs:
+  initial:
+    name: "Initial testing"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "First action"
+        run: echo "Testing"
