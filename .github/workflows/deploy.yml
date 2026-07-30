@@ -1,0 +1,31 @@
+name: Reusable Deploy
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Target environment to deploy to"
+        required: true
+        type: string
+    secrets:
+      deploy-token:
+        required: true
+    outputs:
+      result:
+        description: "Deploy result message"
+        value: ${{ jobs.deploy.outputs.result }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.do-deploy.outputs.result }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: "Deploy"
+        id: do-deploy
+        run: |
+          echo "Deploying to ${{ inputs.environment }}..."
+          # token is available as an env var, never printed
+          echo "result=Deployed to ${{ inputs.environment }} 🎉" >> "$GITHUB_OUTPUT"
+        env:
+          DEPLOY_TOKEN: ${{ secrets.deploy-token }}

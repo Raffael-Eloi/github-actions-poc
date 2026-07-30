@@ -1,0 +1,28 @@
+name: Release Pipeline
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  deploy-staging:
+    uses: ./.github/workflows/deploy.yml          # same-repo path; pin to @vX across repos
+    with:
+      environment: staging
+    secrets:
+      deploy-token: ${{ secrets.STAGING_TOKEN }}
+
+  deploy-production:
+    needs: deploy-staging                          # only go to prod if staging succeeded
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: production
+    secrets:
+      deploy-token: ${{ secrets.PROD_TOKEN }}
+
+  report:
+    needs: [deploy-staging, deploy-production]
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ needs.deploy-staging.outputs.result }}"
+          echo "${{ needs.deploy-production.outputs.result }}"
